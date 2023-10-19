@@ -11,13 +11,8 @@
 
 ### USERS
 
-* `POST`localhost:3000/api/user/signup
-    * Création d'un compte utilisateur
 
-* `POST`localhost:3000/api/user/login
-    * Connexion au compte utilisateur
-
-* `GET`localhost:3000/api/users
+* `GET`localhost:3000/api/user
     * Récupération des utilisateurs
 
 * `GET`localhost:3000/api/user/:id
