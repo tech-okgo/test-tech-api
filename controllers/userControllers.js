@@ -11,7 +11,6 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!.@#$%^&*])(?=.{
 // GET ALL USER //
 exports.getUsers = async (req, res, next) => {
     try {
-        // const users = await models.User.find()
         return res.status(200).json(Users)
     } catch (error) {
         return res.status(500).json({ error: error.message })
@@ -21,7 +20,6 @@ exports.getUsers = async (req, res, next) => {
 // GET USER //
 exports.getUser = async (req, res, next) => {
     try {
-        // const user = await models.User.findOne({ _id: req.params.id })
         let user = Users.find((u) => u.id === req.params.id)
         if (!user)
             return res.status(404).json({ error: 'Utilisateur introuvable.' })
