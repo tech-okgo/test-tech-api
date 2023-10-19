@@ -89,6 +89,35 @@ exports.getUser = async (req, res, next) => {
     }
 }
 
+// CREATE USER //
+exports.createUser = async (req, res, next) => {
+    try {
+        let user = req.body
+        
+        if (user.email) {
+            if (!EMAIL_REGEX.test(user.email))
+                return res.status(400).json({ error: 'Email incorrect.' })
+            
+            let emailExists = await models.User.findOne({ email: user.email })
+            if (emailExists)
+                return res.status(400).json({ error: 'Adresse email déjà existante.' })
+        }
+        
+        if (user.password) {
+            if (!PASSWORD_REGEX.test(user.password))
+                return res.status(401).json({ error: 'Minimum: 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère (!.@#$%^&*)' })
+            
+                user.password = await bcrypt.hash(updates.password, 10)
+        }
+
+        const newUser = await models.User.create(user)
+
+        return res.status(201).json(newUser)
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
 // UPDATE USER //
 exports.updateUser = async (req, res, next) => {
     try {
